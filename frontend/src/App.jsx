@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router'
+import { Navigate, Route, Routes } from 'react-router'
 import './index.css'
 import HomePage from "./pages/HomePage.jsx"
 import LoginPage from "./pages/LoginPage.jsx"
@@ -13,8 +13,8 @@ import { axiosInstance } from './lib/axios.js'
 
 function App() {
 
-  const {data,isLoading,error} = useQuery({
-    queryKey:["todos"],
+  const {data:authData,isLoading,error} = useQuery({
+    queryKey:["authUser"],
     queryFn: async()=>{
       const res= await axiosInstance.get("/auth/me")
       return res.data
@@ -22,22 +22,21 @@ function App() {
     retry:false,
   })
 
-  console.log({data})
-  console.log({isLoading})
-  console.log({error})
+const authUser = authData?.user
+  // console.log({isLoading})
+  // console.log({error})
 
   return (
     <> 
       <div className='h-screen' >
-        <button onClick={()=>{toast.success("Hello World!")}}>+</button>
         <Routes>
-          <Route path="/" element={<HomePage/>}/>
-          <Route path="/signup" element={<SignUpPage/>}/>
-          <Route path="/login" element={<LoginPage/>}/>
-          <Route path="/chat" element={<ChatPage/>}/>
-          <Route path="/onboarding" element={<OnBoardingPage/>}/>
-          <Route path="/call" element={<CallPage/>}/>
-          <Route path="/notifications" element={<NotificaitonsPage/>}/>
+          <Route path="/" element={authUser ? <HomePage/>: <Navigate to="/login"/>}/>
+          <Route path="/signup" element={!authUser ? <SignUpPage/>: <Navigate to="/"/>}/>
+          <Route path="/login" element={!authUser ? <LoginPage/>: <Navigate to="/"/>}/>
+          <Route path="/chat" element={authUser ?<ChatPage/>: <Navigate to="/login"/>}/>
+          <Route path="/onboarding" element={authUser ?<OnBoardingPage/>: <Navigate to="/login"/>}/>
+          <Route path="/call" element={authUser ?<CallPage/>: <Navigate to="/login"/>}/>
+          <Route path="/notifications" element={authUser ?<NotificaitonsPage/>: <Navigate to="/login"/>}/>
         </Routes>
         <Toaster/>
       </div>
