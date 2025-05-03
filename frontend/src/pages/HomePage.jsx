@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import React, { useEffect, useState } from 'react'
-import { getOutgoingFriendReqs, getRecommendedUsers, getUserFreinds, sendFriendRequest } from '../lib/api.js'
+import { getOutgoingFriendReqs, getRecommendedUsers, getUserFriends, sendFriendRequest } from '../lib/api.js'
 import { CheckCircleIcon, MapPinIcon, UserPlusIcon, UsersIcon } from 'lucide-react'
 import { Link } from 'react-router'
 import FriendCard, { getLanguageFlag } from '../components/FriendCard.jsx'
@@ -13,7 +13,7 @@ const HomePage = () => {
 
   const {data:friends=[],isLoading:loadingFriends} = useQuery({
     queryKey:["friends"],
-    queryFn:getUserFreinds
+    queryFn:getUserFriends
   })
 
   const {data:recommendedUsers=[],isLoading:loadingUsers} = useQuery({

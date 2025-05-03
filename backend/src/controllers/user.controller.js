@@ -108,7 +108,7 @@ try {
   const incommingReq = await FriendRequest.find({
     recipient: req.user.id,
     status: "pending"
-  }).populate("sender","fulName,profilePic nativeLanguage learningLanguage")
+  }).populate("sender","fullName profilePic nativeLanguage learningLanguage")
 
   const acceptedReq = await FriendRequest.find({
     sender: req.user.id,

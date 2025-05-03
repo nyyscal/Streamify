@@ -30,7 +30,7 @@ export const completeOnboarding = async(userData)=>{
   return res.data
 }
 
-export const getUserFreinds = async()=>{
+export const getUserFriends = async()=>{
   const res = await axiosInstance.get("/users/friends")
   return res.data
 }
@@ -48,7 +48,7 @@ export const getOutgoingFriendReqs = async()=>{
   return res.data
 }
 export const getFriendRequests = async()=>{
-  const res = await axiosInstance.get("/users/outgoing-friend-requests")
+  const res = await axiosInstance.get("/users/friend-requests")
   return res.data
 }
 export const acceptFriendRequest = async(requestId)=>{
