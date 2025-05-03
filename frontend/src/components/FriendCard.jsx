@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { LANGUAGE_TO_FLAG } from "../constants";
+import { ChartBar, MessageCircle } from "lucide-react";
 
 const FriendCard = ({ friend }) => {
   return (
@@ -25,6 +26,7 @@ const FriendCard = ({ friend }) => {
         </div>
 
         <Link to={`/chat/${friend._id}`} className="btn btn-outline w-full">
+        <MessageCircle/>
           Message
         </Link>
       </div>
