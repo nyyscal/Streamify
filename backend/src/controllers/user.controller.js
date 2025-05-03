@@ -9,7 +9,7 @@ export const getRecommendedUsers = async(req,res)=>{
     const recommendedUsers = await User.find({
       $and :[
         {_id:{$ne:currentUserId}},
-        {$id:{$nin:currentUser.friends}},
+        {_id:{$nin:currentUser.friends}},
         {isOnboarded:true},
       ]
     })
@@ -41,7 +41,7 @@ export const sendFriendRequest = async(req,res)=>{
       return res.status(400).json({message:"You can't send friend request to yourself."})
     }
 
-    const recipient = await User.findBy(recipientId)
+    const recipient = await User.findById(recipientId)
     if(!recipient){
       return res.status(404).json({message:"Recipient not found!"})
     }

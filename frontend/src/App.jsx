@@ -12,6 +12,7 @@ import PageLoader from './components/PageLoader.jsx'
 import useAuthUser from './hooks/useAuthUser.js'
 import Layout from './components/Layout.jsx'
 import { useThemeStore } from './store/useThemeStore.js'
+import NotificationsPage from './pages/NotificationsPage.jsx'
 
 function App() {
 
@@ -48,7 +49,12 @@ if(isLoading) return <PageLoader/>
             )}
             />
           <Route path="/call" element={isAuthenticated ?<CallPage/>: <Navigate to="/login"/>}/>
-          <Route path="/notifications" element={isAuthenticated ?<NotificaitonsPage/>: <Navigate to="/login"/>}/>
+          <Route path="/notifications" element={isAuthenticated && isOnboarded ? 
+            (<Layout showSidebar={true}>
+              <NotificationsPage/>
+            </Layout>):(
+              <Navigate to={!isAuthenticated ? "/login":"/onboarding"}/>
+            )}/>
         </Routes>
         <Toaster/>
       </div>
